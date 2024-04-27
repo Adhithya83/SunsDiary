@@ -1,0 +1,200 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block main %}
+
+<style>
+        /* Custom CSS */
+        body {
+            font-family: 'Arial', sans-serif; /* Change font family */
+            background-color: #ffc0cb; /* Light pink background color */
+
+        }
+
+        .card {
+            background-color: #fff; /* White background for cards */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        .card-title h4 {
+            color: #333; /* Dark text color */
+            margin-bottom: 10px; /* Add some margin bottom */
+        }
+
+        .table-responsive {
+            overflow-x: auto; /* Add horizontal scroll for small screens */
+        }
+
+        table {
+            width: 100%; /* Table width set to 100% */
+            border-collapse: collapse; /* Collapse borders */
+            background-color: #ffcccc; /* Light pink background color for form */
+        }
+
+        th, td {
+            padding: 10px; /* Add padding to table cells */
+            text-align: left; /* Align text to left */
+        }
+
+        th {
+            background-color: #f8f9fa; /* Light gray background for table header */
+        }
+
+        tbody tr:hover {
+            background-color: #f0f0f0; /* Hover effect */
+        }
+
+        .btn {
+            padding: 5px 10px; /* Padding for buttons */
+            font-size: 14px; /* Font size for buttons */
+            cursor: pointer; /* Cursor pointer for buttons */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Primary button color */
+            border-color: #007bff; /* Primary button border color */
+        }
+
+        .btn-info {
+            background-color: #17a2b8; /* Info button color */
+            border-color: #17a2b8; /* Info button border color */
+        }
+
+        .btn-danger {
+            background-color: #dc3545; /* Danger button color */
+            border-color: #dc3545; /* Danger button border color */
+        }
+    form {
+            background-color: #ffcccc; /* Light pink background color for form */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            padding: 20px; /* Padding */
+        }
+
+        .form-label {
+            font-size: 16px; /* Font size for labels */
+            font-weight: bold; /* Bold font weight */
+        }
+
+        .form-control {
+            width: 100%; /* Full width */
+            padding: 10px; /* Padding */
+            border: 1px solid #ccc; /* Border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+        }
+
+        .form-control:focus {
+            outline: none; /* Remove outline on focus */
+            border-color: #007bff; /* Border color on focus */
+        }
+
+        .btn-primary {
+            padding: 10px 20px; /* Padding for buttons */
+            font-size: 16px; /* Font size for buttons */
+            background-color: #007bff; /* Primary button color */
+            border-color: #007bff; /* Primary button border color */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Cursor pointer */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker color on hover */
+            border-color: #0056b3; /* Darker border color on hover */
+        }
+    </style>
+
+<div class="page-wrapper">
+    <!--page-content-wrapper-->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                <div class="breadcrumb-title pe-3" style=" font-weight: bold; font-size: 20px;">Category</div>
+                <div class="ps-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="{% url 'user_home' %}"><i class="bx bx-home-alt"></i></a>
+                            </li>
+                            <li class="breadcrumb-item" aria-current="page" style=" font-weight: bold; font-size: 20px;">Manage Category</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!--end breadcrumb-->
+
+            <div class="row">
+                <div class="radius-15 col-xl-5 mx-auto">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h4 class="mb-0">Add Category</h4>
+                            </div>
+                            <hr>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="form-label">Category Name</label>
+                                    <input type="text" name="categoryName" placeholder="Enter Category Name" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary px-5">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card radius-15 col-xl-7">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h4 class="mb-0">Category List</h4>
+                        </div>
+                        <hr/>
+                        <div class="table-responsive">
+    <table class="table mb-0">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Creation Date</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for i in category %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{i.categoryName}}</td>
+            <td>{{i.CreationDate}}</td>
+            <td><a href="{% url 'editCategory' i.id %}" class="btn btn-info">Edit</a> |
+                <a href="{% url 'deleteCategory' i.id %}" onclick="return confirm('Are you sure to Delete')" class="btn btn-danger">Delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+{% if error == "no" %}
+<script>
+    alert('New Category has been Added.');
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert('Something went Wrong. Try Again...');
+</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block main %}
+{% load static %}
+<style>
+/* CSS for responsive design */
+@media screen and (max-width: 768px) {
+  .h1 {
+    font-size: 3em; /* Reduce font size for smaller screens */
+  }
+
+  .image-container img {
+    width: 100%; /* Make the image fill the container */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .links-container {
+    top: 80%; /* Adjust links container position for smaller screens */
+  }
+}
+
+/* Rest of your existing CSS styles */
+.h1 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 4em;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: 'Brush Script MT', cursive;
+}
+
+.p1 {
+  position: fixed;
+  left: 0px;
+  top: 30%;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: cursive;
+}
+
+.p2 {
+  left: 0px;
+  top: 40%;
+  position: fixed;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: cursive;
+}
+
+.p3 {
+  left: 0px;
+  top: 50%;
+  position: fixed;
+  transform: translateY(-50%);
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: cursive;
+}
+
+.background-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.links-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+  background-color: #ffb6c1;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  font-family: cursive;
+}
+
+.link:hover {
+  background-color: #ffd1dc;
+}
+</style>
+<div>
+  <h1 class="h1">Sun's Diary</h1>
+  <div class="image-container">
+    <img src="{% static 'images/mainimg.jpg' %}" style="width: 100%; height: auto;">
+    <div class="links-container">
+      <a href="{% url 'registration' %}" class="link">Register</a>
+      <hr>
+      <a href="{% url 'user_login' %}" class="link">Login</a>
+    </div>
+  </div>
+  <div class="bookmark">
+    <p class="p1">If you have the</p><br>
+    <p class="p2">ability to love,</p><br>
+    <p class="p3">love yourself first</p>
+  </div>
+</div>
+{% endblock %}

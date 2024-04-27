@@ -1,0 +1,158 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block main %}
+
+<style>
+    table {
+            width: 100%; /* Table width set to 100% */
+            background-color: #ffcccc; /* Light pink background color for table */
+            border-collapse: collapse; /* Collapse borders */
+        }
+
+        th, td {
+            padding: 10px; /* Add padding to table cells */
+            text-align: left; /* Align text to left */
+            border-bottom: 1px solid #dee2e6; /* Border bottom for table rows */
+            font-family: 'Arial', sans-serif; /* Change font family */
+        }
+
+        th {
+            background-color: #f8f9fa; /* Light gray background for table header */
+            font-weight: bold; /* Bold font weight for table headers */
+            border-top: 1px solid #dee2e6; /* Border top for table header */
+        }
+
+        tbody tr:hover {
+            background-color: #f0f0f0; /* Hover effect */
+        }
+
+        .btn {
+            padding: 5px 10px; /* Padding for buttons */
+            font-size: 14px; /* Font size for buttons */
+            cursor: pointer; /* Cursor pointer for buttons */
+            text-decoration: none; /* Remove default text decoration */
+        }
+
+        .btn-success {
+            background-color: #28a745; /* Success button color */
+            border-color: #28a745; /* Success button border color */
+            color: #fff; /* White text color for buttons */
+        }
+    form {
+            background-color: #ffcccc; /* Light pink background color for form */
+            padding: 20px; /* Padding for form */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        .form-label {
+            font-size: 16px; /* Font size for labels */
+            font-weight: bold; /* Bold font weight */
+            color: #333; /* Dark text color for labels */
+        }
+
+        .form-control {
+            width: 100%; /* Full width */
+            padding: 10px; /* Padding for input */
+            border: 1px solid #ccc; /* Border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+            font-family: 'Arial', sans-serif; /* Font family */
+            color: #333; /* Dark text color */
+        }
+
+        .form-control:focus {
+            outline: none; /* Remove outline on focus */
+            border-color: #007bff; /* Border color on focus */
+        }
+
+        .btn {
+            padding: 10px 20px; /* Padding for button */
+            font-size: 16px; /* Font size for button */
+            background-color: #dc3545; /* Primary button color */
+            border-color: #007bff; /* Primary button border color */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Cursor pointer */
+            color: #fff; /* White text color */
+        }
+
+        .btn:hover {
+            background-color: #0056b3; /* Darker color on hover */
+            border-color: #0056b3; /* Darker border color on hover */
+        }
+</style>
+<div class="page-wrapper">
+    <!--page-content-wrapper-->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!--breadcrumb-->
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+                <div class="breadcrumb-title pe-3">Search</div>
+                <div class="ps-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0 p-0">
+                            <li class="breadcrumb-item"><a href="{% url 'user_home' %}"><i class="bx bx-home-alt"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Search Notes</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!--end breadcrumb-->
+
+            <div class="row">
+                <div class="radius-15 col-xl-12 mx-auto">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h4 class="mb-0">Search Notes</h4>
+                            </div>
+                            <hr>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="form-label">Search By Notes title</label>
+                                    <input type="text" name="search" placeholder="Enter Notes Title" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-primary px-5">Search</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        {% if notes %}
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Notes Title</th>
+        <th scope="col">Category</th>
+        <th scope="col">Creation Date</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for i in notes %}
+    <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{i.noteTitle}}</td>
+        <td>{{i.category.categoryName}}</td>
+        <td>{{i.CreationDate}}</td>
+        <td><a href="{% url 'viewNotes' i.id %}" class="btn btn-success">View</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}
